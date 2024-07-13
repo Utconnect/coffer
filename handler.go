@@ -1,4 +1,4 @@
-package coffer
+package main
 
 import (
 	"encoding/json"

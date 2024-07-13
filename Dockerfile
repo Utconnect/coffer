@@ -1,5 +1,5 @@
 FROM golang:1.22.5
-USER $APP_UID
+
 WORKDIR /app
 EXPOSE 8080
 
@@ -7,8 +7,6 @@ COPY go.mod ./
 RUN go mod download
 
 COPY . .
-RUN GOOS=linux GOARCH=amd64 go build -o /coffer
-RUN chmod +x /coffer
+RUN CGO_ENABLE=0 GOOS=linux go build -o ./coffer .
 
-CMD ["/coffer"]
-
+ENTRYPOINT ["./coffer"]
