@@ -1,0 +1,44 @@
+services:
+  vault:
+    image: hashicorp/vault:1.17.2
+    container_name: vault
+    ports:
+      - "8201:8201"
+    environment:
+      VAULT_ADDR: 'https://0.0.0.0:8201'
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - vault-volume:/data
+#    command: ./workflow-vault.sh
+#    networks:
+#      - vault
+
+#  vault-prepopulate:
+#    image: alpine/curl
+#    depends_on:
+#      - vault
+#    volumes:
+#      - ./docker/workflow-vault.sh:/usr/local/bin/workflow-vault.sh
+#    command: ["sh", "-c", "/usr/local/bin/workflow-vault.sh"]
+#    networks:
+#      - vault
+
+  coffer:
+    build: .
+    container_name: coffer
+    ports:
+      - "8080:8080"
+    depends_on:
+      - vault
+    environment:
+      #      DOCKER_DEFAULT_PLATFORM: "linux/amd64"
+      VAULT_ADDRESS: "http://vault:8201"
+#      VAULT_TOKEN: "example"
+      PORT: "8080"
+
+volumes:
+  vault-volume:
+
+networks:
+  vault:
