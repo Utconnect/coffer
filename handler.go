@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"os"
 )
@@ -17,14 +18,16 @@ type SecretResponse struct {
 }
 
 func getSecret(w http.ResponseWriter, r *http.Request) {
+	log.Printf("Getting secret...")
 	secretName := r.URL.Query().Get("name")
 	if secretName == "" {
 		http.Error(w, "Missing 'name' query parameter", http.StatusBadRequest)
 		return
 	}
 
-	secretPath := fmt.Sprintf("secret/%s", secretName)
+	secretPath := fmt.Sprintf("secret/data/%s", secretName)
 	url := fmt.Sprintf("%s/v1/%s", vaultAddress, secretPath)
+	log.Printf(url)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
