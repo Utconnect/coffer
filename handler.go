@@ -30,11 +30,13 @@ func getSecret(w http.ResponseWriter, r *http.Request) {
 	log.Printf(url)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
+		log.Printf("Error when creating request")
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	req.Header.Set("X-Vault-Token", vaultToken)
+	log.Printf(vaultToken)
 
 	client := &http.Client{}
 	resp, err := client.Do(req)

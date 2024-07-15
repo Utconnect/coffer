@@ -1,7 +1,8 @@
-api_addr = "http://127.0.0.1:8200"
-cluster_addr = "https://127.0.0.1:8201"
+api_addr = "http://127.0.0.1:5200"
+cluster_addr = "https://127.0.0.1:5201"
 ui = true
 disable_mlock = true
+disable_sealwrap = true
 
 storage "file" {
   path    = "./vault/data"
@@ -9,7 +10,7 @@ storage "file" {
 }
 
 listener "tcp" {
-  address     = "127.0.0.1:8200"
+  address     = "0.0.0.0:5200"
   tls_disable = "true"
 }
 
