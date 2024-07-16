@@ -1,13 +1,17 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"os"
 )
 
 func main() {
-	http.HandleFunc("/secret", getSecret)
+	r := mux.NewRouter()
+	r.HandleFunc("/secret/{namespace}/{app}/{secretName}", getSecret).Methods("GET")
+	http.Handle("/", r)
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"

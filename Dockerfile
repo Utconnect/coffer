@@ -3,7 +3,7 @@ FROM golang:1.22.5
 WORKDIR /app
 EXPOSE 8080
 
-COPY go.mod ./
+COPY go.mod go.sum ./
 RUN go mod download
 
 COPY . .
