@@ -19,6 +19,7 @@ services:
 
   api:
     build: .
+    image: snowflower1408/coffer
     container_name: coffer_api
     ports:
       - "5102:8080"
