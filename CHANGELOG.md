@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/Utconnect/coffer/compare/v1.1.0...v1.1.1) (2024-07-20)
+
+
+### CI/CD
+
+* copy only /src for build stage ([f0a4b3b](https://github.com/Utconnect/coffer/commit/f0a4b3b3c6e04c2e4637ddbd72491694c4adc40f))
+* run image with non-root user ([23b8d2a](https://github.com/Utconnect/coffer/commit/23b8d2a00bdecd879f46006a226359d621985b0d))
+* use `go-alpine` to reduce docker image size ([b3ed288](https://github.com/Utconnect/coffer/commit/b3ed288a395d1b9232932bac2cabada2273ecc27))
+
 ## 1.1.0 (2024-07-17)
 
 
