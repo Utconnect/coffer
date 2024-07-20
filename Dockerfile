@@ -1,4 +1,4 @@
-FROM golang:1.22.5
+FROM golang:1.22.5-alpine
 
 WORKDIR /app
 EXPOSE 8080
