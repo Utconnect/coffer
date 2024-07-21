@@ -58,7 +58,7 @@ jobs:
           git config --global user.name "Release workflow"
 
       - name: Release new version
-        run: npx --yes standard-version
+        run: npx --yes standard-version -a
 
       - name: Push new version
         run: |
