@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/Utconnect/coffer/compare/v1.1.1...v1.1.2) (2024-07-21)
+
+
+### CI/CD
+
+* update sonar version when release ([95b73dc](https://github.com/Utconnect/coffer/commit/95b73dcea279ac36e1a101dc444006f03f754393))
+
 ### [1.1.1](https://github.com/Utconnect/coffer/compare/v1.1.0...v1.1.1) (2024-07-20)
 
 
