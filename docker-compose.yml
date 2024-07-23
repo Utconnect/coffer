@@ -5,9 +5,14 @@ services:
     ports:
       - "5200:5200"
     environment:
-      VAULT_ADDR: 'https://0.0.0.0:5200'
+      VAULT_ADDR: 'http://0.0.0.0:5200'
       VAULT_API_ADDR: 'http://127.0.0.1:5200'
       VAULT_CLUSTER_ADDR: 'https://127.0.0.1:5201'
+      VAULT_KV_BE_IDENTITY_DB_PASSWORD: 'example'
+      VAULT_KV_BE_ESM_JWT_KEY: 'example'
+      VAULT_KV_BE_ESM_DB_PASSWORD: 'example'
+      VAULT_KV_BE_OIDC_DB_PASSWORD: 'example'
+      VAULT_KV_BE_OIDC_JWT_KEY: 'example'
     cap_add:
       - IPC_LOCK
     volumes:
