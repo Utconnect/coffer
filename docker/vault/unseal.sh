@@ -30,9 +30,9 @@ if [ "$SEALED" = "true" ] && [ -f "$INIT_OUTPUT_FILE" ]; then
     echo "Vault is sealed. Unsealing using keys from $INIT_OUTPUT_FILE..."
     UNSEAL_KEYS=$(grep "Unseal Key " "$INIT_OUTPUT_FILE" | awk '{print $4}')
 
-    echo "$UNSEAL_KEYS" | head -n 3 | while read key; do
+    echo "$UNSEAL_KEYS" | head -n 3 | while read -r key; do
         sleep .25
-        vault operator unseal "$key"
+        vault operator unseal "$key" > /dev/null
     done
 
     echo "Vault has been unsealed."
@@ -48,7 +48,7 @@ sleep .25
 if [ -f "$INIT_OUTPUT_FILE" ]; then
     echo "Looking up for logged in token."
 
-    if vault token lookup; then
+    if vault token lookup > /dev/null 2>&1; then
         echo "Vault is already logged in."
     else
         echo "Logging in to Vault..."
@@ -90,7 +90,9 @@ if [ -f "$INIT_OUTPUT_FILE" ]; then
             vault_key="${env_name}"
 
             # Add the secret to Vault
-            if vault kv patch "${vault_namespace}" "${vault_key}=${value}"; then
+            if vault kv patch "${vault_namespace}" "${vault_key}=${value}" > /dev/null 2>&1; then
+                echo "Secret ${vault_namespace}/${vault_key} added successfully to Vault."
+            elif vault kv put "${vault_namespace}" "${vault_key}=${value}" > /dev/null 2>&1; then
                 echo "Secret ${vault_namespace}/${vault_key} added successfully to Vault."
             else
                 echo "Failed to add secret ${vault_namespace}/${vault_key} to Vault."
