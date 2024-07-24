@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/Utconnect/coffer/compare/v1.1.3...v1.2.0) (2024-07-24)
+
+
+### Features
+
+* allow patching secrets by using kv2 ([827ef15](https://github.com/Utconnect/coffer/commit/827ef157432b4cbd884c48b86c3b2b39269c813a))
+
+
+### CI/CD
+
+* add script to auto-seal vault ([8a86d67](https://github.com/Utconnect/coffer/commit/8a86d671773d029fbba18f13a2f224b8116ea5b8))
+* allow to scan all files in project ([d993f20](https://github.com/Utconnect/coffer/commit/d993f203a95af93defc4021078f524e2f539262e))
+
 ### [1.1.3](https://github.com/Utconnect/coffer/compare/v1.1.2...v1.1.3) (2024-07-22)
 
 
