@@ -14,6 +14,10 @@ var vaultAddress = os.Getenv("VAULT_ADDRESS")
 var vaultToken = os.Getenv("VAULT_TOKEN")
 
 type SecretResponse struct {
+	Data SecretResponseData `json:"data"`
+}
+
+type SecretResponseData struct {
 	Data map[string]string `json:"data"`
 }
 
@@ -27,7 +31,7 @@ func getSecret(w http.ResponseWriter, r *http.Request) {
 	namespace := vars["namespace"]
 	secretName := vars["secretName"]
 
-	secretPath := fmt.Sprintf("%s/%s", namespace, app)
+	secretPath := fmt.Sprintf("%s/data/%s", namespace, app)
 	url := fmt.Sprintf("%s/v1/%s", vaultAddress, secretPath)
 
 	req, _ := http.NewRequest("GET", url, nil)
@@ -51,7 +55,7 @@ func getSecret(w http.ResponseWriter, r *http.Request) {
 	_ = json.Unmarshal(body, &secretResp)
 
 	response := ApiResponse{
-		Data: secretResp.Data[secretName],
+		Data: secretResp.Data.Data[secretName],
 	}
 
 	_ = json.NewEncoder(w).Encode(response)
