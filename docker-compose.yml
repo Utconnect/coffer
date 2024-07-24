@@ -9,10 +9,10 @@ services:
       VAULT_API_ADDR: 'http://127.0.0.1:5200'
       VAULT_CLUSTER_ADDR: 'https://127.0.0.1:5201'
       VAULT_KV_BE_IDENTITY_DB_PASSWORD: 'example'
-      VAULT_KV_BE_ESM_JWT_KEY: 'example'
+      VAULT_KV_BE_ESM_JWT_KEY: 'ZXhhbXBsZV9leGFtcGxlX2V4YW1wbGVfZXhhbXBsZQ'
       VAULT_KV_BE_ESM_DB_PASSWORD: 'example'
       VAULT_KV_BE_OIDC_DB_PASSWORD: 'example'
-      VAULT_KV_BE_OIDC_JWT_KEY: 'example'
+      VAULT_KV_BE_OIDC_JWT_KEY: 'ZXhhbXBsZV9leGFtcGxlX2V4YW1wbGVfZXhhbXBsZQ'
     cap_add:
       - IPC_LOCK
     volumes:
