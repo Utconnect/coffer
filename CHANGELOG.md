@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/Utconnect/coffer/compare/v1.2.0...v1.3.0) (2024-07-26)
+
+
+### Features
+
+* login with github token ([78fbdc0](https://github.com/Utconnect/coffer/commit/78fbdc02a391e3249a70015c870af4e474a1d338))
+
+
+### CI/CD
+
+* ignore messages from vault when run unseal script ([3262534](https://github.com/Utconnect/coffer/commit/32625348c7f1a6dfa107bb3307ec9cb9a5dda527))
+
 ## [1.2.0](https://github.com/Utconnect/coffer/compare/v1.1.3...v1.2.0) (2024-07-24)
 
 
