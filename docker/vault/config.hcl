@@ -13,10 +13,3 @@ listener "tcp" {
   address     = "0.0.0.0:5200"
   tls_disable = "true"
 }
-
-path "kv/*" {
-  capabilities = ["create", "read", "update", "delete", "list"]
-}
-path "kv/my-secret" {
-  capabilities = ["read"]
-}

@@ -45,19 +45,16 @@ fi
 
 # Login to Vault using the root token
 sleep .25
-if [ -f "$INIT_OUTPUT_FILE" ]; then
-    echo "Looking up for logged in token."
-
-    if vault token lookup > /dev/null 2>&1; then
-        echo "Vault is already logged in."
-    else
-        echo "Logging in to Vault..."
-        ROOT_TOKEN=$(grep "Initial Root Token: " "$INIT_OUTPUT_FILE" | awk '{print $4}')
-        vault login "$ROOT_TOKEN"
-        echo "Successfully logged in to Vault."
-        echo "Enabling KV secrets engine at be/ namespace..."
-        sleep 2
-    fi
+echo "Looking up for logged in token."
+if vault token lookup > /dev/null 2>&1; then
+    echo "Vault is already logged in."
+elif [ -f "$INIT_OUTPUT_FILE" ]; then
+    echo "Logging in to Vault..."
+    ROOT_TOKEN=$(grep "Initial Root Token: " "$INIT_OUTPUT_FILE" | awk '{print $4}')
+    vault login "$ROOT_TOKEN"
+    echo "Successfully logged in to Vault."
+    echo "Enabling KV secrets engine at be/ namespace..."
+    sleep 2
 
     if vault secrets list | grep '^be/' > /dev/null; then
         echo "KV secrets engine is already enabled at be/ namespace."
@@ -103,3 +100,13 @@ else
     echo "Init file not found. Unable to log in automatically."
     exit 1
 fi
+
+if vault auth list | grep 'github/' > /dev/null; then
+    echo "Github authentication is already enabled."
+else
+    vault auth enable github
+fi
+
+vault policy write github-admin /vault/config.d/github-admin.policy.hcl
+vault write auth/github/config organization=Utconnect
+vault write auth/github/map/teams/admin value=github-admin
