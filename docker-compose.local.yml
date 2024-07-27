@@ -1,0 +1,40 @@
+services:
+  vault:
+    image: hashicorp/vault:1.17.2
+    container_name: vault
+    ports:
+      - "5200:5200"
+    env_file: docker/env/vault.local.env
+    environment:
+      VAULT_ADDR: 'http://0.0.0.0:5200'
+      VAULT_API_ADDR: 'http://127.0.0.1:5200'
+      VAULT_CLUSTER_ADDR: 'https://127.0.0.1:5201'
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - vault-volume:/data
+      - ./docker/vault/:/vault/config.d
+    networks:
+      - vault-network
+    entrypoint: vault server -config=/vault/config.d/config.hcl
+
+  api:
+    build: .
+    image: snowflower1408/coffer
+    container_name: coffer_api
+    ports:
+      - "5102:8080"
+    depends_on:
+      - vault
+    environment:
+      VAULT_ADDRESS: "http://vault:5200"
+#      VAULT_TOKEN:
+      PORT: "8080"
+    networks:
+      - vault-network
+
+volumes:
+  vault-volume:
+
+networks:
+  vault-network:

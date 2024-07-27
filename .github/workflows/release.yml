@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
-    name: Build and deploy
+  build-and-push:
+    name: Build and push
     runs-on: ubuntu-22.04
 
     steps:
@@ -39,7 +39,7 @@ jobs:
 
   release:
     name: Release
-    needs: build-and-deploy
+    needs: build-and-push
     runs-on: ubuntu-22.04
 
     steps:

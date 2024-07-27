@@ -1,0 +1,42 @@
+name: Deploy Vault
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-vault:
+    name: Deploy Vault
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Create .env file for vault container
+        run: |
+          cat << EOF > docker/env/vault.prod.env
+          VAULT_KV_BE_IDENTITY_DB_PASSWORD=${{ secrets.VAULT_KV_BE_IDENTITY_DB_PASSWORD }}
+          VAULT_KV_BE_ESM_JWT_KEY=${{ secrets.VAULT_KV_BE_ESM_JWT_KEY }}
+          VAULT_KV_BE_ESM_DB_PASSWORD=${{ secrets.VAULT_KV_BE_ESM_DB_PASSWORD }}
+          VAULT_KV_BE_OIDC_DB_PASSWORD=${{ secrets.VAULT_KV_BE_OIDC_DB_PASSWORD }}
+          VAULT_KV_BE_OIDC_JWT_KEY=${{ secrets.VAULT_KV_BE_OIDC_JWT_KEY }}
+          EOFruns-on: ubuntu-latest
+
+      - name: Install SSH key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_KEY }}
+          known_hosts: ${{ secrets.KNOWN_HOSTS }}
+
+      - name: Deploy to VPS
+        env:
+          HOST: ${{ secrets.SERVER_IP }}
+          USER: ${{ secrets.SERVER_USER }}
+        run: |
+          scp docker-compose.prod.yml $USER@$HOST:/var/www/vault/docker-compose.yml
+          scp docker/env/vault.prod.env $USER@$HOST:/var/www/vault/docker/env/vault.prod.env
+          ssh $USER@$HOST << EOF
+            cd /var/www/vault
+            docker-compose pull
+            docker-compose up -d vault
+          EOF
