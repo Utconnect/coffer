@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.4.0](https://github.com/Utconnect/coffer/compare/v1.3.0...v1.4.0) (2024-07-27)
+
+
+### Features
+
+* use token with limited policy ([2b66278](https://github.com/Utconnect/coffer/commit/2b66278d5ffc27e176d3a094c4d9a72aa1e3f949))
+
+
+### CI/CD
+
+* add workflow to deploy ([0d46484](https://github.com/Utconnect/coffer/commit/0d46484a7feefb64a308a2ea9147e8baf8c55114))
+
 ## [1.3.0](https://github.com/Utconnect/coffer/compare/v1.2.0...v1.3.0) (2024-07-26)
 
 
