@@ -4,6 +4,7 @@ export VAULT_ADDR='http://0.0.0.0:5200'
 
 STATUS=$(vault status 2>/dev/null)
 INIT_OUTPUT_FILE="vault_init_output.txt"
+COFFER_OUTPUT_FILE="coffer_output.txt"
 
 if [ $? -ne 0 ]; then
     echo "Error: Unable to connect to Vault"
@@ -107,6 +108,25 @@ else
     vault auth enable github
 fi
 
+if vault auth list | grep 'approle/' > /dev/null; then
+    echo "Github authentication is already enabled."
+else
+    vault auth enable approle
+fi
+
 vault policy write github-admin /vault/config.d/github-admin.policy.hcl
+vault policy write coffer /vault/config.d/coffer.policy.hcl
+
 vault write auth/github/config organization=Utconnect
 vault write auth/github/map/teams/admin value=github-admin
+
+vault write auth/approle/role/coffer token_policies=coffer
+COFFER_ROLE_ID=$(vault read auth/approle/role/coffer/role-id | grep 'role_id' | awk '{print $2}')
+COFFER_SECRET_ID=$(vault write -f auth/approle/role/coffer/secret-id | grep -w 'secret_id' | awk '{print $2}')
+echo "COFFER_ROLE_ID=""${COFFER_ROLE_ID}" > "$COFFER_OUTPUT_FILE"
+echo "COFFER_SECRET_ID=""${COFFER_SECRET_ID}" >> "$COFFER_OUTPUT_FILE"
+
+echo "$COFFER_ROLE_ID"
+echo "$COFFER_SECRET_ID"
+COFFER_TOKEN=$(vault write auth/approle/login role_id="$COFFER_ROLE_ID" secret_id="$COFFER_SECRET_ID" | grep -w 'token' | awk '{print $2}')
+echo "COFFER_TOKEN=""${COFFER_TOKEN}" >> "$COFFER_OUTPUT_FILE"

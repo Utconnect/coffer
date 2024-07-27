@@ -32,7 +32,7 @@ Coffer is an API service that simplifies secret management in a microservice arc
 3. Enter the Docker container and run the unseal script:
   ```sh
   docker exec -it <container_id> /bin/sh
-  source /vault/config.d/unseal.sh
+  source /vault/config.d/init.sh
   ```
 
 ## Usage
