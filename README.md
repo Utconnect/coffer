@@ -1,4 +1,5 @@
 # Coffer
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Utconnect_coffer&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Utconnect_coffer)
 
 Coffer is an API service that simplifies secret management in a microservice architecture. Instead of making direct HTTP requests to HashiCorp Vault, services can request secrets from Coffer, streamlining and securing the process.
 
