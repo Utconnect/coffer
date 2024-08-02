@@ -18,6 +18,7 @@ jobs:
           VAULT_KV_BE_IDENTITY_DB_PASSWORD=${{ secrets.VAULT_KV_BE_IDENTITY_DB_PASSWORD }}
           VAULT_KV_BE_ESM_JWT_KEY=${{ secrets.VAULT_KV_BE_ESM_JWT_KEY }}
           VAULT_KV_BE_ESM_DB_PASSWORD=${{ secrets.VAULT_KV_BE_ESM_DB_PASSWORD }}
+          VAULT_KV_BE_JARVIS_DB_PASSWORD=${{ secrets.VAULT_KV_BE_JARVIS_DB_PASSWORD }}
           VAULT_KV_BE_OIDC_DB_PASSWORD=${{ secrets.VAULT_KV_BE_OIDC_DB_PASSWORD }}
           VAULT_KV_BE_OIDC_JWT_KEY=${{ secrets.VAULT_KV_BE_OIDC_JWT_KEY }}
           EOFruns-on: ubuntu-latest
